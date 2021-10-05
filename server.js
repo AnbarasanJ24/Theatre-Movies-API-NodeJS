@@ -1,21 +1,32 @@
 const express = require('express');
 const dotenv = require('dotenv');
-
-// Route Files
-const theatres = require('./routes/theatres');
+const morgan = require('morgan');
+const logger = require('./middleware/logger');
 
 const app = express();
 
-// Mounting Router
+/* Config Variables
+=========================== */
+dotenv.config({ path: './config/config.env' });
+
+/* Route Files
+=========================== */
+const theatres = require('./routes/theatres');
+
+
+/* Dev Logging Middleware
+=========================== */
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
+
+/* Mounting Router
+=========================== */
 app.use('/api/v1/theatres', theatres);
 
-// Config Variables
-dotenv.config({ path: './config/config.env' });
 
 const PORT = process.env.PORT || 5000;
 
-
-
-
-// To start server
+/* To start server
+=========================== */
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${process.env.PORT} `))
