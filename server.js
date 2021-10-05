@@ -1,12 +1,20 @@
 const express = require('express');
 const dotenv = require('dotenv');
 
+// Route Files
+const theatres = require('./routes/theatres');
+
 const app = express();
+
+// Mounting Router
+app.use('/api/v1/theatres', theatres);
 
 // Config Variables
 dotenv.config({ path: './config/config.env' });
 
 const PORT = process.env.PORT || 5000;
+
+
 
 
 // To start server
