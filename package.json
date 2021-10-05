@@ -1,0 +1,31 @@
+{
+  "name": "Theatre-Movies-API-NodeJS",
+  "version": "1.0.0",
+  "description": "This Pproject contains collection of Theatre list API",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnbarasanJ24/Theatre-Movies-API-NodeJS.git"
+  },
+  "keywords": [
+    "theatre",
+    "movies"
+  ],
+  "author": "Anbarasan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AnbarasanJ24/Theatre-Movies-API-NodeJS/issues"
+  },
+  "homepage": "https://github.com/AnbarasanJ24/Theatre-Movies-API-NodeJS#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
