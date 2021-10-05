@@ -22,8 +22,10 @@
   },
   "homepage": "https://github.com/AnbarasanJ24/Theatre-Movies-API-NodeJS#readme",
   "dependencies": {
+    "colors": "^1.4.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "mongoose": "^6.0.9",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
