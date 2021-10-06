@@ -1,6 +1,9 @@
 
 // @desc      Get All Theatres
 // @route     GET '/api/v1/theatres'
+
+const Theatre = require("../models/Theatre");
+
 // @access    Public
 exports.getTheatres = (req, res, next) => {
     res.status(200).send({ success: true, data: 'Displaying all theatres' });
@@ -16,8 +19,10 @@ exports.getTheatre = (req, res, next) => {
 // @desc      POST new Theatre
 // @route     POST '/api/v1/theatres'
 // @access    Private
-exports.postTheatre = (req, res, next) => {
-    res.status(200).send({ success: true, data: 'New theatre details created' })
+exports.postTheatre = async (req, res, next) => {
+    const body = await Theatre.create(req.body);
+    // console.log(req.body);
+    res.status(201).json({ success: true, data: body })
 }
 
 // @desc      Update Single Theatre
