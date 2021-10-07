@@ -56,9 +56,7 @@ const TheatreSchema = mongoose.Schema({
         country: String,
     },
     languages: {
-        type: {
-            type: String,
-        },
+        type: [String],
         enum: [
             "English",
             "Tamil",
