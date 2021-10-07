@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { default: slugify } = require('slugify');
 
 const TheatreSchema = mongoose.Schema({
     name: {
@@ -79,5 +80,13 @@ const TheatreSchema = mongoose.Schema({
     }
 
 });
+
+
+/* Custom Slug Generation
+=========================== */
+TheatreSchema.pre('save', function (next) {
+    this.slug = slugify(this.name, { lower: true })
+    next();
+})
 
 module.exports = mongoose.model('Theatre', TheatreSchema);
