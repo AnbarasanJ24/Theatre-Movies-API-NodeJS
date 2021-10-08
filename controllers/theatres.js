@@ -8,7 +8,14 @@ const ErrorResponse = require("../utilis/ErrorResponse");
 // @route     GET '/api/v1/theatres'
 // @access    Public
 exports.getTheatres = asyncHandler(async (req, res, next) => {
-    const data = await Theatre.find();
+    console.log(req.query)
+    let query;
+
+    let queryStr = JSON.stringify(req.query);
+    queryStr = queryStr.replace(/\b(eq|neq|gt|gte|lt|lte)\b/g, match => `$${match}`)
+    query = Theatre.find(JSON.parse(queryStr));
+
+    const data = await query;
 
     res.status(200).json({
         success: true,

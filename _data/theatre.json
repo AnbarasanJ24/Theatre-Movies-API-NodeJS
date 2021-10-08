@@ -1,17 +1,19 @@
 [
     {
         "name": "PVR Rivoli - Connaught Place / Delhi",
-        "slug": "PVR-Rivoli-Connaught-Place-Delhi",
         "description": "PVR Rivoli - Connaught Place / Delhi",
-        "address": "H-Block - Inner Circle - Connaught Place New Delhi IND 110001",
         "website": "https://PVR Plaza.com",
         "phone": "(111) 111-1111",
         "email": "enroll@devworks.com",
+        "address": "H-Block - Inner Circle - Connaught Place New Delhi IND 110001",
         "languages": [
             "English",
             "Tamil",
-            "English"
-        ]
+            "Hindi"
+        ],
+        "photo": "no-photo.jpg",
+        "slug": "pvr-rivoli-connaught-place-delhi",
+        "averageTicketCost": 400
     },
     {
         "name": "Delite Cinema / Diamond - Delhi",
@@ -23,8 +25,24 @@
         "languages": [
             "English",
             "Tamil",
-            "English"
+            "Hindi"
         ],
-        "photo": "no-photo.jpg"
+        "photo": "no-photo.jpg",
+        "slug": "delite-cinema-diamond-delhi",
+        "averageTicketCost": 200
+    },
+    {
+        "name": "Adlabs Cinema / Pondicherry",
+        "description": "Adlabs Cinema / Pondicherry",
+        "website": "https://AdlabsPO.com",
+        "phone": "94565857496",
+        "email": "enroll@adlabs.com",
+        "address": "No 125 Indria Nagar Pondicherry IN 605004",
+        "languages": [
+            "English",
+            "Tamil"
+        ],
+        "photo": "no-photo.jpg",
+        "averageTicketCost": 300
     }
 ]
