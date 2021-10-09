@@ -1,43 +1,41 @@
 [
     {
-        "name": "PVR Rivoli - Connaught Place / Delhi",
-        "description": "PVR Rivoli - Connaught Place / Delhi",
-        "website": "https://PVR Plaza.com",
-        "phone": "(111) 111-1111",
-        "email": "enroll@devworks.com",
-        "address": "H-Block - Inner Circle - Connaught Place New Delhi IND 110001",
+        "name": "Cinepolis: Forum Shantiniketan, Bengaluru",
+        "description": "Movie theater chain, offering state-of-the-art sound & projection technology.",
+        "website": "http://www.cinepolisindia.com/",
+        "phone": "0413- 256341",
+        "email": "cinepolisindia@forum.com",
+        "address": "3rd Floor, Prestige Shantiniketan Mall, Opposite Manipal Hospital, ITPL Main Road, Whitefield, Bengaluru, Karnataka 560067, India",
         "languages": [
             "English",
             "Tamil",
             "Hindi"
         ],
         "photo": "no-photo.jpg",
-        "slug": "pvr-rivoli-connaught-place-delhi",
         "averageTicketCost": 400
     },
     {
-        "name": "Delite Cinema / Diamond - Delhi",
-        "description": "Delite Cinema / Diamond - Delhi",
-        "website": "https://PVR Plaza.com",
-        "phone": "(111) 111-1111",
-        "email": "enroll@devworks.com",
-        "address": "H-Block - Inner Circle - Connaught Place New Delhi IND 110001",
+        "name": "INOX: Forum Neighbourhood Mall, Whitefield",
+        "description": "INOX: Forum Neighbourhood Mall, Whitefield",
+        "website": "https://www.inoxmovies.com/",
+        "phone": "0413- 2426351",
+        "email": "inoxwhitefield@inox.com",
+        "address": "No.62, 2nd Floor, The Forum Neighbourhood Mall, Whitefield Main Road, Whitefield, Near Citi Bank ATM, Bengaluru, Karnataka 560066, India",
         "languages": [
             "English",
             "Tamil",
             "Hindi"
         ],
         "photo": "no-photo.jpg",
-        "slug": "delite-cinema-diamond-delhi",
         "averageTicketCost": 200
     },
     {
-        "name": "Adlabs Cinema / Pondicherry",
-        "description": "Adlabs Cinema / Pondicherry",
-        "website": "https://AdlabsPO.com",
-        "phone": "94565857496",
-        "email": "enroll@adlabs.com",
-        "address": "No 125 Indria Nagar Pondicherry IN 605004",
+        "name": "PVR: The Cinema Providence, Pondicherry",
+        "description": "PVR: The Cinema Providence, Pondicherry",
+        "website": "https://www.pvrcinemas.com/",
+        "phone": "0143- 256348",
+        "email": "providence@pvr.com",
+        "address": "No-7, Providence Mall, 4th and 5th Floor, Venkatasubba Reddiyar Salai, Via Cuddalore Road, Near Malai Malar, Pondicherry, Tamil Nadu 605001, India",
         "languages": [
             "English",
             "Tamil"

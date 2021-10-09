@@ -10,12 +10,13 @@
     7. Map the controller inside router file
     8. Mount the router with path in server
 
-    9. Setup Body parser using express json in server JS
-    10. Create middleware folder and Setup async middleware to avoid repeated try & next and also handles error 
-    11. Create error middleware with Error response class in utlity folder
-    12. Use error middleware after mounting the router files
+    9. Create schema using mongoose inside model folder 
+    10. Setup Body parser using express json in server JS
+    11. Create middleware folder and Setup async middleware to avoid repeated try & next and also handles error 
+    12. Create error middleware with Error response class in utlity folder
+    13. Use error middleware after mounting the router files
 
-    13. Create schema using mongoose inside model folder and use it in controller middleware for CRUD
+    
 
 
 <!-- Application Flow -->

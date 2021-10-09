@@ -20,8 +20,9 @@ exports.getTheatres = asyncHandler(async (req, res, next) => {
     // Making comparison operator query
     let query;
     let queryStr = JSON.stringify(reqQuery);
-    queryStr = queryStr.replace(/\b(eq|neq|gt|gte|lt|lte)\b/g, match => `$${match}`)
-    query = Theatre.find(JSON.parse(queryStr));
+    queryStr = queryStr.replace(/\b(eq|neq|gt|gte|lt|lte)\b/g, match => `$${match}`);
+
+    query = Theatre.find(JSON.parse(queryStr)).populate('movies');
 
     // select query (Need to send required fields for display)
     if (req.query.select) {
@@ -40,7 +41,7 @@ exports.getTheatres = asyncHandler(async (req, res, next) => {
 
     // Pagination & Limit
     const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 10;
 
     // No of Documents to be skipped
     // For second page=> (2-1)*10 = 10 (So 10 documents will be skipped)
@@ -73,9 +74,9 @@ exports.getTheatres = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        data: data,
         count: total,
-        pagination
+        pagination,
+        data: data
     });
 })
 
@@ -129,10 +130,12 @@ exports.updateTheatre = asyncHandler(async (req, res, next) => {
 // @access    Private
 exports.deleteTheatre = asyncHandler(async (req, res, next) => {
     try {
-        const theatre = await Theatre.findByIdAndDelete(req.params.id);
+        const theatre = await Theatre.findById(req.params.id);
         if (!theatre) {
             return next(new ErrorResponse(`Theatre not found with id ${req.params.id}`, 404));
         }
+        // It will trigger cascade delete movies
+        theatre.remove();
 
         res.status(200).send({
             success: true,

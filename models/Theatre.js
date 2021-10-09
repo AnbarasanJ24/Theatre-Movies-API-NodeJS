@@ -79,6 +79,31 @@ const TheatreSchema = mongoose.Schema({
         default: Date.now
     },
 
+},
+    {
+        toJSON: { virtuals: true },
+        toObject: { virtuals: true }
+    });
+
+
+/* Populate movies in theatre virtually that mean it will not present in theatre scheme
+   Virtual function take field name and its reference options
+   Ref : Movies modal name, localfield : theare unique Id in DB,
+   foriegnField: theatre reference in movies   
+=========================== */
+TheatreSchema.virtual('movies', {
+    ref: 'Movies',
+    localField: '_id',
+    foreignField: 'theatre',
+    justOne: false
+})
+
+/* Cascase delete, On deleting Theatre will delete its associated movies
+=========================== */
+TheatreSchema.pre('remove', async function (next) {
+    console.log("Movies delete with theatre id", this._id)
+    await this.model('Movies').deleteMany({ theatre: this._id });
+    next();
 });
 
 

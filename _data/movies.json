@@ -1,0 +1,23 @@
+[
+    {
+        "title": "Doctor",
+        "description": "Varun is a military doctor who visits Chennai and gets caught up in the pursuit of a missing girl. How Varun and six others take on human/organ trafficking lords forms the rest of the story.",
+        "duration": "2h 28m",
+        "genre": [
+            "Action",
+            "Comedy",
+            "Thriller"
+        ],
+        "theatre": "61618cfae1b6b0ac668149c6"
+    },
+    {
+        "title": "A Quiet Place - Part 2",
+        "description": "Following the events in the previous film, the Abbott family must learn to survive in the outside world. They soon realise that the creatures that hunt by sound are not the only threat they will have to face.",
+        "duration": "1h 37m",
+        "genre": [
+            "Horror",
+            "Thriller"
+        ],
+        "theatre": "61618cfae1b6b0ac668149c4"
+    }
+]

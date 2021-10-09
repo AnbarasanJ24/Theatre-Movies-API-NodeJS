@@ -26,6 +26,7 @@ connectDB();
 /* Route Files
 =========================== */
 const theatres = require('./routes/theatres');
+const movies = require('./routes/movies');
 
 
 /* Dev Logging Middleware
@@ -37,6 +38,7 @@ if (process.env.NODE_ENV === 'development') {
 /* Mounting Router
 =========================== */
 app.use('/api/v1/theatres', theatres);
+app.use('/api/v1/movies', movies);
 
 
 /* Error Middleware
