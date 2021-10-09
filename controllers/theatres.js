@@ -41,6 +41,7 @@ exports.getTheatres = asyncHandler(async (req, res, next) => {
     // Pagination & Limit
     const page = parseInt(req.query.page, 10) || 1;
     const limit = parseInt(req.query.limit, 10) || 1;
+
     // No of Documents to be skipped
     // For second page=> (2-1)*10 = 10 (So 10 documents will be skipped)
     // startIndex =10 and endIndex=20
