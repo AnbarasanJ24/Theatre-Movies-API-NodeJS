@@ -1,7 +1,9 @@
 
 const asyncHandler = require("../middleware/async");
-const Theatre = require("../models/Theatre");
 const ErrorResponse = require("../utilis/ErrorResponse");
+const Theatre = require("../models/Theatre");
+
+const path = require('path');
 
 
 // @desc      Get All Theatres
@@ -72,6 +74,56 @@ exports.deleteTheatre = asyncHandler(async (req, res, next) => {
         success: true,
         data: `Deleted theatre details with id ${req.params.id}`
     })
+})
+
+
+// @desc      Updare Image for Theatre
+// @route     PUT '/api/v1/theatres/:id/photo
+// @access    Private
+exports.uploadTheatreImage = asyncHandler(async (req, res, next) => {
+
+    const theatre = await Theatre.findById(req.params.id);
+    if (!theatre) {
+        return next(new ErrorResponse(`Theatre not found with id ${req.params.id}`, 404));
+    }
+
+    if (!req.files) {
+        return next(new ErrorResponse('File not found', 400));
+    }
+
+    const file = req.files.file;
+
+
+    /* Only Image type
+    =========================== */
+    if (!file.mimetype.startsWith('image')) {
+        return next(new ErrorResponse('Image File not found', 400));
+    }
+
+    /* File size validation
+   =========================== */
+    if (file.size > process.env.MAX_FILE_UPLOAD) {
+        return next(new ErrorResponse(`File size exceeds the limit. Max limit ${process.env.MAX_FILE_UPLOAD}`, 400));
+    }
+
+    /* Generating unique file name
+   =========================== */
+    file.name = `photo${theatre._id}${path.parse(file.name).ext}`;
+
+    file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async err => {
+        if (err) {
+            console.log(err)
+            return next(
+                new ErrorResponse('Issue with image upload', 500)
+            )
+        }
+        await Theatre.findByIdAndUpdate(req.params.id, { photo: file.name });
+        res.status(200).json({
+            success: true,
+            data: file.name
+        })
+    })
+
 })
 
 

@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
+const path = require('path');
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
@@ -27,6 +28,7 @@ connectDB();
 =========================== */
 const theatres = require('./routes/theatres');
 const movies = require('./routes/movies');
+const fileUpload = require('express-fileupload');
 
 
 /* Dev Logging Middleware
@@ -34,6 +36,18 @@ const movies = require('./routes/movies');
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
+
+/* File upload
+=========================== */
+app.use(fileUpload());
+
+
+
+/* Set static folder
+=========================== */
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 /* Mounting Router
 =========================== */
