@@ -1,5 +1,6 @@
 const asyncHandler = require("../middleware/async");
 const Movies = require('../models/Movies');
+const Theatre = require("../models/Theatre");
 const ErrorResponse = require("../utilis/ErrorResponse");
 
 
@@ -11,22 +12,16 @@ exports.getMovies = asyncHandler(async (req, res, next) => {
     let query;
 
     if (req.params.theatreId) {
-        query = Movies.find({ 'theatre': req.params.theatreId })
-    } else {
-        // Populate Theatre with name and description
-        query = Movies.find().populate({
-            path: 'theatre',
-            select: 'name description'
+        const courses = await Movies.find({ 'theatre': req.params.theatreId })
+
+        res.json({
+            success: true,
+            count: courses.length,
+            data: courses
         })
+    } else {
+        res.status(200).json(res.advancedResults);
     }
-
-    const courses = await query;
-
-    res.json({
-        success: true,
-        count: courses.length,
-        data: courses
-    })
 })
 
 // @desc      Get Singe Movie
@@ -46,5 +41,68 @@ exports.getMovie = asyncHandler(async (req, res, next) => {
     res.json({
         success: true,
         data: movie
+    })
+})
+
+// @desc      Create Singe Movie
+// @route     POST '/api/v1/theatre/:theatreid/movies'
+// @access    Private
+exports.postMovie = asyncHandler(async (req, res, next) => {
+    req.body.theatre = req.params.theatreId;
+
+    const theatre = await Theatre.findById(req.params.theatreId);
+
+    if (!theatre) {
+        return next(new ErrorResponse('Theatre not found', 404));
+    }
+
+    const movie = await Movies.create(req.body);
+
+    res.status(200).json({
+        success: true,
+        data: movie
+    })
+})
+
+
+// @desc      Update a Movie
+// @route     PUT '/api/v1/movies/:id'
+// @access    Private
+exports.updateMovie = asyncHandler(async (req, res, next) => {
+
+    const movie = await Movies.findById(req.params.id);
+
+    if (!movie) {
+        return next(new ErrorResponse('Movie not found', 404));
+    }
+
+    const updateMovie = await Movies.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    })
+
+    res.status(200).json({
+        success: true,
+        data: updateMovie
+    })
+})
+
+
+// @desc      Delete a Movie
+// @route     DELETE '/api/v1/movies/:id'
+// @access    Private
+exports.deleteMovie = asyncHandler(async (req, res, next) => {
+
+    const movie = await Movies.findById(req.params.id);
+
+    if (!movie) {
+        return next(new ErrorResponse('Movie not found', 404));
+    }
+
+    await movie.remove();
+
+    res.status(200).json({
+        success: true,
+        data: `Movie with id ${req.params.id} is deleted !`
     })
 })

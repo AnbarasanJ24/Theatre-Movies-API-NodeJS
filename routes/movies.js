@@ -1,17 +1,25 @@
 const express = require('express');
-const { getMovie, getMovies } = require('../controllers/movies');
+const { getMovie, getMovies, postMovie, updateMovie, deleteMovie } = require('../controllers/movies');
+const advancedResults = require('../middleware/advancedResults');
+const Movies = require('../models/Movies');
 const router = express.Router({ mergeParams: true });
 
 router
     .route('/')
-    .get(getMovies)
-// .post()
+    .get(advancedResults(
+        Movies,
+        {
+            path: 'theatre',
+            select: 'name description'
+        }
+    ), getMovies)
+    .post(postMovie);
 
 router
     .route('/:id')
     .get(getMovie)
-//     .put()
-//     .delete()
+    .put(updateMovie)
+    .delete(deleteMovie);
 
 
 module.exports = router;

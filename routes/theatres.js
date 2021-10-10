@@ -1,5 +1,7 @@
 const express = require('express');
 const { getTheatres, postTheatre, getTheatre, updateTheatre, deleteTheatre } = require('../controllers/theatres');
+const advancedResults = require('../middleware/advancedResults');
+const Theatre = require('../models/Theatre');
 const router = express.Router();
 
 /* Other Resource Router
@@ -10,10 +12,9 @@ const moviesRouter = require('./movies');
 =========================== */
 router.use('/:theatreId/movies', moviesRouter);
 
-
 router
     .route('/')
-    .get(getTheatres)
+    .get(advancedResults(Theatre, 'movies'), getTheatres)
     .post(postTheatre);
 
 router
