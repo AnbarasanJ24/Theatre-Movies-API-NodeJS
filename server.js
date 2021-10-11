@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 
 const connectDB = require('./config/db');
@@ -13,7 +14,11 @@ const app = express();
 
 /* Body Parser
 =========================== */
-app.use(express.json())
+app.use(express.json());
+
+/* Cookie Parser
+=========================== */
+app.use(cookieParser());
 
 
 /* Config Variables

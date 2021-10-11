@@ -3,6 +3,7 @@
  * 2. Create a middleware in model and hash the password using bcrypt library, also store in DB
  * 3. Create a method in model to create JWT Token 
  * 4. Trigger once user is created from DB to get JWT token
+ * 5. For login, match user password with DB password 
  */
 
 const asyncHandler = require("../middleware/async");
@@ -23,13 +24,9 @@ exports.register = asyncHandler(async (req, res, next) => {
         role
     });
 
-    // Get Token from Mongoose Method
-    const token = user.getJWT();
+    // Send token response using helper method 
+    sendTokenResponse(user, 200, res);
 
-    res.status(200).json({
-        succes: true,
-        token
-    })
 })
 
 
@@ -59,11 +56,29 @@ exports.login = asyncHandler(async (req, res, next) => {
         return next(new ErrorResponse('Invalid credentials', 401));
     }
 
+    // Send token response using helper method 
+    sendTokenResponse(user, 200, res);
+
+})
+
+const sendTokenResponse = (user, statusCode, res) => {
     // Get Token from Mongoose Method
     const token = user.getJWT();
 
-    res.status(200).json({
-        succes: true,
-        token
-    })
-})
+    const options = {
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
+        httpOnly: true
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+        options.secure = true;
+    }
+
+    res
+        .status(statusCode)
+        .cookie('token', token, options)
+        .json({
+            succes: true,
+            token
+        })
+}
