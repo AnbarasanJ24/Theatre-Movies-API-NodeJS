@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
 const path = require('path');
+const fileUpload = require('express-fileupload');
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
@@ -28,7 +29,7 @@ connectDB();
 =========================== */
 const theatres = require('./routes/theatres');
 const movies = require('./routes/movies');
-const fileUpload = require('express-fileupload');
+const auth = require('./routes/auth');
 
 
 /* Dev Logging Middleware
@@ -53,6 +54,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 =========================== */
 app.use('/api/v1/theatres', theatres);
 app.use('/api/v1/movies', movies);
+app.use('/api/v1/auth', auth);
 
 
 /* Error Middleware

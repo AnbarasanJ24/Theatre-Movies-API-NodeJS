@@ -1,8 +1,9 @@
 const express = require('express');
-const { getMovie, getMovies, postMovie, updateMovie, deleteMovie } = require('../controllers/movies');
-const advancedResults = require('../middleware/advancedResults');
-const Movies = require('../models/Movies');
 const router = express.Router({ mergeParams: true });
+const Movies = require('../models/Movies');
+const advancedResults = require('../middleware/advancedResults');
+
+const { getMovie, getMovies, postMovie, updateMovie, deleteMovie } = require('../controllers/movies');
 
 router
     .route('/')
