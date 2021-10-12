@@ -33,6 +33,11 @@ const TheatreSchema = mongoose.Schema({
             'Please add a valid email'
         ]
     },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+        required: true
+    },
     address: {
         type: String,
         required: [true, 'Please add an address']

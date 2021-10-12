@@ -13,6 +13,7 @@ exports.getTheatres = asyncHandler(async (req, res, next) => {
     res.status(200).json(res.advancedResults);
 })
 
+
 // @desc      Get Single Theatre
 // @route     GET '/api/v1/theatres/:id
 // @access    Private
@@ -28,10 +29,24 @@ exports.getTheatre = asyncHandler(async (req, res, next) => {
     })
 })
 
+
 // @desc      POST new Theatre
 // @route     POST '/api/v1/theatres'
 // @access    Private
 exports.postTheatre = asyncHandler(async (req, res, next) => {
+
+    // Added user to the request bod
+    req.body.user = req.user.id;
+
+
+    // Check for theatre details added by publisher role
+    const publishedTheatre = await Theatre.findOne({ user: req.user.id });
+
+    if (publishedTheatre && req.user.role !== 'admin') {
+        return next(new ErrorResponse(`User with id ${req.user.id} has already created a theatre details`, 400));
+    }
+
+
     const body = await Theatre.create(req.body);
     res.status(201).json({
         success: true,
@@ -39,18 +54,26 @@ exports.postTheatre = asyncHandler(async (req, res, next) => {
     })
 })
 
+
 // @desc      Update Single Theatre
 // @route     PUT '/api/v1/theatres/:id
 // @access    Private
 exports.updateTheatre = asyncHandler(async (req, res, next) => {
-    const theatre = await Theatre.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true
-    });
+    let theatre = await Theatre.findById(req.params.id);
 
     if (!theatre) {
         return next(new ErrorResponse(`Theatre not found with id ${req.params.id}`, 404));
     }
+
+    // Allow update only for Theatre publisher
+    if (theatre.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(new ErrorResponse(`User with id ${req.user.id} not authroized to update this movie`, 401));
+    }
+
+    theatre = await Theatre.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+    });
 
     res.status(200).send({
         success: true,
@@ -67,6 +90,12 @@ exports.deleteTheatre = asyncHandler(async (req, res, next) => {
     if (!theatre) {
         return next(new ErrorResponse(`Theatre not found with id ${req.params.id}`, 404));
     }
+
+    // Allow remove only for Theatre publisher
+    if (theatre.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(new ErrorResponse(`User with id ${req.user.id} not authroized to Delete this movie`, 401));
+    }
+
     // It will trigger cascade delete movies
     theatre.remove();
 
@@ -85,6 +114,10 @@ exports.uploadTheatreImage = asyncHandler(async (req, res, next) => {
     const theatre = await Theatre.findById(req.params.id);
     if (!theatre) {
         return next(new ErrorResponse(`Theatre not found with id ${req.params.id}`, 404));
+    }
+    // Allow remove only for Theatre publisher
+    if (theatre.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(new ErrorResponse(`User with id ${req.user.id} not authroized to update image`, 401));
     }
 
     if (!req.files) {

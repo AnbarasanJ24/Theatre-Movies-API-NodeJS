@@ -49,11 +49,16 @@ exports.getMovie = asyncHandler(async (req, res, next) => {
 // @access    Private
 exports.postMovie = asyncHandler(async (req, res, next) => {
     req.body.theatre = req.params.theatreId;
+    req.body.user = req.user;
 
     const theatre = await Theatre.findById(req.params.theatreId);
 
     if (!theatre) {
         return next(new ErrorResponse('Theatre not found', 404));
+    }
+    // Allow create only for Theatre publisher
+    if (theatre.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(new ErrorResponse(`User with id ${req.user.id} not authroized to create movie `, 401));
     }
 
     const movie = await Movies.create(req.body);
@@ -75,6 +80,11 @@ exports.updateMovie = asyncHandler(async (req, res, next) => {
     if (!movie) {
         return next(new ErrorResponse('Movie not found', 404));
     }
+    // Allow create only for Theatre publisher
+    if (movie.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(new ErrorResponse(`User with id ${req.user.id} not authroized to update this movie `, 401));
+    }
+
 
     const updateMovie = await Movies.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
@@ -97,6 +107,10 @@ exports.deleteMovie = asyncHandler(async (req, res, next) => {
 
     if (!movie) {
         return next(new ErrorResponse('Movie not found', 404));
+    }
+    // Allow create only for Theatre publisher
+    if (movie.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        return next(new ErrorResponse(`User with id ${req.user.id} not authroized to delete this movie `, 401));
     }
 
     await movie.remove();

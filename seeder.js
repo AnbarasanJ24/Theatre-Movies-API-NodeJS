@@ -7,6 +7,7 @@ const colors = require('colors');
 const Theatre = require('./models/Theatre');
 const Movies = require('./models/Movies');
 const mongoose = require('mongoose');
+const User = require('./models/User');
 
 
 dotenv.config({ path: './config/config.env' });
@@ -23,11 +24,13 @@ mongoose.connect(process.env.MONGO_URI, {
 =========================== */
 const theatres = JSON.parse(fs.readFileSync(`${__dirname}/_data/theatre.json`));
 const movies = JSON.parse(fs.readFileSync(`${__dirname}/_data/movies.json`));
+const users = JSON.parse(fs.readFileSync(`${__dirname}/_data/user.json`));
 
 const importData = async () => {
     try {
-        await Theatre.create(theatres);
-        await Movies.create(movies);
+        // await Theatre.create(theatres);
+        // await Movies.create(movies);
+        await User.create(users);
         console.log("Data loaded into DB".green.inverse);
     } catch (err) {
         console.log("Something went wrong".red, err)
@@ -38,6 +41,7 @@ const deleteData = async () => {
     try {
         await Theatre.deleteMany();
         await Movies.deleteMany();
+        await User.deleteMany();
         console.log("Data deleted into DB".red.inverse);
     } catch (err) {
         console.log("Something went wrong".red, err)

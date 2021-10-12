@@ -4,6 +4,7 @@ const Movies = require('../models/Movies');
 const advancedResults = require('../middleware/advancedResults');
 
 const { getMovie, getMovies, postMovie, updateMovie, deleteMovie } = require('../controllers/movies');
+const { protect, authorize } = require('../middleware/auth');
 
 router
     .route('/')
@@ -14,13 +15,13 @@ router
             select: 'name description'
         }
     ), getMovies)
-    .post(postMovie);
+    .post(protect, authorize('admin', 'publisher'), postMovie);
 
 router
     .route('/:id')
     .get(getMovie)
-    .put(updateMovie)
-    .delete(deleteMovie);
+    .put(protect, authorize('admin', 'publisher'), updateMovie)
+    .delete(protect, authorize('admin', 'publisher'), deleteMovie);
 
 
 module.exports = router;

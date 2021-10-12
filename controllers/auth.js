@@ -82,3 +82,35 @@ const sendTokenResponse = (user, statusCode, res) => {
             token
         })
 }
+
+// @desc      Get Current User
+// @route     GET '/api/v1/auth/me'
+// @access    Private
+exports.getMe = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+    res.status(200).json({
+        succes: true,
+        data: user
+    })
+})
+
+// @desc      Forgot Password
+// @route     GET '/api/v1/auth/forgotpassword'
+// @access    Private
+exports.forgotPassword = asyncHandler(async (req, res, next) => {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+        return next(new ErrorResponse(`User not found with this ${req.body.email} email`, 404));
+    }
+
+    const resetToken = user.getResetPasswordToken();
+
+    // await user.save({ validateBeforeSave: false })
+    await User.findByIdAndUpdate(user.id.toString(), user);
+
+    res.status(200).json({
+        succes: true,
+        data: user
+    })
+
+})

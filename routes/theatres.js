@@ -4,6 +4,10 @@ const advancedResults = require('../middleware/advancedResults');
 const Theatre = require('../models/Theatre');
 const router = express.Router();
 
+/* Protect & Authorize User
+=========================== */
+const { protect, authorize } = require('../middleware/auth');
+
 /* Other Resource Router
 =========================== */
 const moviesRouter = require('./movies');
@@ -15,18 +19,18 @@ router.use('/:theatreId/movies', moviesRouter);
 
 /* File upload router
 =========================== */
-router.route('/:id/photo').put(uploadTheatreImage);
+router.route('/:id/photo').put(protect, authorize('admin', 'publisher'), uploadTheatreImage);
 
 router
     .route('/')
     .get(advancedResults(Theatre, 'movies'), getTheatres)
-    .post(postTheatre);
+    .post(protect, authorize('admin', 'publisher'), postTheatre);
 
 router
     .route('/:id')
     .get(getTheatre)
-    .put(updateTheatre)
-    .delete(deleteTheatre);
+    .put(protect, authorize('admin', 'publisher'), updateTheatre)
+    .delete(protect, authorize('admin', 'publisher'), deleteTheatre);
 
 
 

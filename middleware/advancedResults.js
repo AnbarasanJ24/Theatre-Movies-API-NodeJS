@@ -82,7 +82,7 @@ const advancedResults = (modal, populate) => async (req, res, next) => {
 
     res.advancedResults = {
         success: true,
-        count: modal.length,
+        count: total,
         pagination,
         data
     }
