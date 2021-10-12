@@ -1,8 +1,13 @@
 const express = require('express');
 const { getTheatres, postTheatre, getTheatre, updateTheatre, deleteTheatre, uploadTheatreImage } = require('../controllers/theatres');
-const advancedResults = require('../middleware/advancedResults');
 const Theatre = require('../models/Theatre');
 const router = express.Router();
+
+
+/* Middleware for Filter, sorting, pagination
+=========================== */
+const advancedResults = require('../middleware/advancedResults');
+
 
 /* Protect & Authorize User
 =========================== */
