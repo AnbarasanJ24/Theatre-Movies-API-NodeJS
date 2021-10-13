@@ -5,7 +5,7 @@ const colors = require('colors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
-
+const mongoSanitize = require('express-mongo-sanitize');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 
@@ -19,6 +19,14 @@ app.use(express.json());
 /* Cookie Parser
 =========================== */
 app.use(cookieParser());
+
+/* Mongoose Santize Parser (Restrict NoSQL Injection)
+{
+    "email": {"$gt":""},
+    "password": "123456"
+}
+=========================== */
+app.use(mongoSanitize());
 
 
 /* Config Variables
