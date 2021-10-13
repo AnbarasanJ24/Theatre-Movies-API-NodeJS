@@ -36,6 +36,7 @@ const theatres = require('./routes/theatres');
 const movies = require('./routes/movies');
 const auth = require('./routes/auth');
 const user = require('./routes/user');
+const reviews = require('./routes/reviews');
 
 
 /* Dev Logging Middleware
@@ -62,6 +63,7 @@ app.use('/api/v1/theatres', theatres);
 app.use('/api/v1/movies', movies);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/users', user);
+app.use('/api/v1/reviews', reviews);
 
 
 /* Error Middleware

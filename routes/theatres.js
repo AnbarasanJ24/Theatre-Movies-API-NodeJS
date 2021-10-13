@@ -16,10 +16,12 @@ const { protect, authorize } = require('../middleware/auth');
 /* Other Resource Router
 =========================== */
 const moviesRouter = require('./movies');
+const reviewRouter = require('./reviews');
 
 /* Re-route into other resource routers
 =========================== */
 router.use('/:theatreId/movies', moviesRouter);
+router.use('/:theatreId/reviews', reviewRouter)
 
 
 /* File upload router

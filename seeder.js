@@ -28,9 +28,9 @@ const users = JSON.parse(fs.readFileSync(`${__dirname}/_data/user.json`));
 
 const importData = async () => {
     try {
-        // await Theatre.create(theatres);
-        // await Movies.create(movies);
         await User.create(users);
+        await Theatre.create(theatres);
+        await Movies.create(movies);
         console.log("Data loaded into DB".green.inverse);
     } catch (err) {
         console.log("Something went wrong".red, err)
@@ -39,9 +39,9 @@ const importData = async () => {
 
 const deleteData = async () => {
     try {
+        await User.deleteMany();
         await Theatre.deleteMany();
         await Movies.deleteMany();
-        await User.deleteMany();
         console.log("Data deleted into DB".red.inverse);
     } catch (err) {
         console.log("Something went wrong".red, err)
