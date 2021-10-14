@@ -2,7 +2,12 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
 const path = require('path');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -20,6 +25,8 @@ app.use(express.json());
 =========================== */
 app.use(cookieParser());
 
+
+
 /* Mongoose Santize Parser (Restrict NoSQL Injection)
 {
     "email": {"$gt":""},
@@ -27,6 +34,36 @@ app.use(cookieParser());
 }
 =========================== */
 app.use(mongoSanitize());
+
+
+/* Set security header using helmet
+=========================== */
+app.use(helmet());
+
+
+/* Cross site scripting
+=========================== */
+app.use(xss())
+
+
+/* Rate Limiting
+=========================== */
+const limiter = rateLimit({
+    windowMs: 10 * 6 * 1000,
+    max: 100
+})
+app.use(limiter);
+
+
+/* Prevent HTTP Params Pollution
+=========================== */
+app.use(hpp());
+
+
+/* Enable CORS
+=========================== */
+app.use(cors());
+
 
 
 /* Config Variables
