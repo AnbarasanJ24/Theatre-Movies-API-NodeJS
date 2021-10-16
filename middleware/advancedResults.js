@@ -1,3 +1,5 @@
+/* Middleware to handle Filter, Pagination, projection 
+=========================== */
 const advancedResults = (modal, populate) => async (req, res, next) => {
 
     // Taking copy to avoid passing unnecessary field to find query
