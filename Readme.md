@@ -23,6 +23,7 @@
   NodeMailer             - Support Email
   Slufigy                - Support Slug Creation
   Xss-clean              - Support Cross site scripting
+  Docgen                 - Support Postman API Documentation
 
 ```
 
