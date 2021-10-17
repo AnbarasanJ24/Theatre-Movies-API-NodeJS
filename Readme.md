@@ -1,4 +1,4 @@
-# Gizzy Theatre-Movies API
+# Theatre-Movies API
 
 > This project provides an implementation of web service, designed to showcase colleaction of theatre & movies.
 
@@ -9,7 +9,7 @@
   Brcypto JS             - Support Password Hashing
   Cors                   - Support CORS 
   Dotenv                 - Support Config File
-  Express-fileupload     - Support adding images
+  Express-fileupload     - Support Adding Images
   Express-mongo-santizie - Support NoSQl Injection
   Express-rate-limit     - Support Rate Limiting
   Helmet                 - Support Security Header
