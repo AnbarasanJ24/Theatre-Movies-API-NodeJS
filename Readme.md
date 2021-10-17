@@ -1,4 +1,4 @@
-# Gizzy Theatre-Movies API
+# Theatre-Movies API
 
 > This project provides an implementation of web service, designed to showcase colleaction of theatre & movies.
 
