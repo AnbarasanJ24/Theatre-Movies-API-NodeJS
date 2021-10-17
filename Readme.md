@@ -2,6 +2,9 @@
 
 > This project provides an implementation of web service, designed to showcase colleaction of theatre & movies.
 
+## Usage
+> Please update Mongo URL and Node mailer config in config/config.env file
+
 ## Used Library
 
 ```
