@@ -1,3 +1,7 @@
+
+
+/* Custom Error Handling
+=========================== */
 class ErrorResponse extends Error {
     constructor(message, statusCode) {
         super(message);

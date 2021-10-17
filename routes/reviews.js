@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const { getReviews, getReview, createReview, updateReview, deleteReview } = require('../controllers/reviews');
+
+
 const Review = require('../models/Review');
+const { getReviews, getReview, createReview, updateReview, deleteReview } = require('../controllers/reviews');
 
 
 /* Middleware for Filter, sorting, pagination

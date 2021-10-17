@@ -1,12 +1,15 @@
-"use strict";
+
 const nodemailer = require("nodemailer");
 
+
+/* Sending Email on Password Reset
+=========================== */
 const sendEmail = async (options) => {
 
     let transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
         port: process.env.SMTP_PORT,
-        secure: false, // true for 465, false for other ports
+        secure: false,
         auth: {
             user: process.env.SMTP_EMAIL,
             pass: process.env.SMTP_PASSWORD,

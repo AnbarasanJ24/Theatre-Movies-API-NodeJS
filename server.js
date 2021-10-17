@@ -16,7 +16,6 @@ const mongoSanitize = require('express-mongo-sanitize');
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
-
 const app = express();
 
 

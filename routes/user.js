@@ -1,8 +1,8 @@
 const express = require('express');
-const { getUsers, createUser, getUser, updateeUser, deleteUser } = require('../controllers/user');
 const router = express.Router();
-const User = require('../models/User');
 
+const User = require('../models/User');
+const { getUsers, createUser, getUser, updateeUser, deleteUser } = require('../controllers/user');
 
 /* Middleware for Filter, sorting, pagination
 =========================== */

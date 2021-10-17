@@ -1,5 +1,8 @@
 const ErrorResponse = require("../utilis/ErrorResponse");
 
+
+/* Custom Error Handling
+=========================== */
 const errorHandler = (err, req, res, next) => {
     console.log("Error", err)
     let error = { ...err };
